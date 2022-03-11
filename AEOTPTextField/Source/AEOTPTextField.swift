@@ -91,6 +91,9 @@ public class AEOTPTextField: UITextField {
         label.isUserInteractionEnabled = true
         label.layer.masksToBounds = true
         label.text = otpDefaultCharacter
+        label.layer.borderWidth = otpDefaultBorderWidth
+        label.layer.borderColor = otpDefaultBorderColor.cgColor
+        label.backgroundColor = otpBackgroundColor
         return label
     }
     
