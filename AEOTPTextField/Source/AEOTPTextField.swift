@@ -25,6 +25,7 @@ public class AEOTPTextField: UITextField {
     public var otpTextColor: UIColor = .black
     public var otpFontSize: CGFloat = 14
     public var otpFont: UIFont = UIFont.systemFont(ofSize: 14)
+    public var otpFlipTextAlignment: Bool = true // rtl/ltr
     public weak var otpDelegate: AEOTPTextFieldDelegate?
     
     private var implementation = AEOTPTextFieldImplementation()
@@ -99,7 +100,12 @@ public class AEOTPTextField: UITextField {
         for labelIndex in 0 ..< digitLabels.count {
             let currentLabel = digitLabels[labelIndex]
             if labelIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: labelIndex)
+                var index: String.Index
+                if otpFlipTextAlignment {
+                    index = text.index(text.endIndex, offsetBy: -labelIndex-1)
+                } else {
+                    index = text.index(text.startIndex, offsetBy: labelIndex)
+                }
                 currentLabel.text = String(text[index])
                 currentLabel.layer.borderWidth = otpFilledBorderWidth
                 currentLabel.layer.borderColor = otpFilledBorderColor.cgColor
